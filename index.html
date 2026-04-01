@@ -1,77 +1,263 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
   <meta charset="UTF-8">
-  <title>تقديم إلى فريق TNL</title>
+  <title>03rxx - سحب الحسابات</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #0b0b0b;
-      color: white;
+      font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background: black;
+      color: white;
+    }
+
+    video {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+      z-index: -1;
+    }
+
+    .top-text {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 32px;
+      color: #FFD700;
+      text-shadow: 2px 2px 10px black;
+      font-weight: bold;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 25px;
+      padding: 30px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 60px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+      color: #fff;
     }
 
-    .tnl-rgb {
-      font-size: 48px;
-      font-weight: bold;
-      background: linear-gradient(90deg, red, green, blue);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: moveRGB 4s linear infinite;
-      background-size: 300% 100%;
-    }
-
-    @keyframes moveRGB {
-      0% {background-position: 0%;}
-      100% {background-position: 100%;}
+    h1 img {
+      width: 50px;
+      height: 50px;
+      margin-left: 10px;
     }
 
     h2 {
-      margin: 10px 0;
+      font-size: 26px;
+      margin-top: 10px;
+      color: #FFD700;
     }
 
-    .note {
-      font-size: 16px;
-      color: #ff6666;
-      margin-bottom: 30px;
-      background-color: #1a1a1a;
-      padding: 10px 20px;
-      border: 1px solid #ff4444;
-      border-radius: 8px;
-      max-width: 90%;
+    .email {
+      font-size: 22px;
+      margin-top: 10px;
+      color: #fff;
     }
 
-    a.mail-btn {
-      padding: 15px 30px;
-      background: #00ffff;
-      color: black;
+    button {
+      padding: 16px;
+      width: 100%;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+      color: white;
+      margin-top: 25px;
+      font-size: 22px;
       font-weight: bold;
-      text-decoration: none;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ffff90;
-      transition: background 0.3s;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      transition: 0.3s all;
     }
 
-    a.mail-btn:hover {
-      background: #0ff;
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.7);
+    }
+
+    #spinner {
+      font-size: 50px;
+      margin-top: 20px;
+      height: 60px;
+      text-shadow: 2px 2px 10px black;
+    }
+
+    #timer {
+      margin-top: 15px;
+      font-size: 22px;
+      color: #FFD700;
+      text-shadow: 1px 1px 5px black;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      top: -12px;
+      z-index: 9999;
+      border-radius: 50%;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-bottom: 30px solid #FFD700;
+      margin: 15px auto;
+      animation: none;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 20px;
+      color: #00FFFF;
+      text-shadow: 2px 2px 10px black;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="tnl-rgb">TNL TEAM</div>
-  <h2>تقديم إلى الفريق</h2>
+  <video autoplay muted loop>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
 
-  <div class="note">
-    يجب إدخال معلوماتك الحقيقية لحفظك داخل بيانات الفريق.
+  <div class="top-text">🎉 الفعالية مقدمة من مجد بمناسبة تأهل العراق إلى كأس العالم 🇮🇶</div>
+
+  <div class="card">
+    <div id="start">
+      <button onclick="start()">ابدأ السحب 🎰</button>
+    </div>
+    <div id="spinner"></div>
+    <div class="arrow" id="arrow"></div>
+    <div id="result" style="display:none;"></div>
+    <div class="footer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="insta">
+      حساب الانستقرام: <strong>03rxx</strong> | حقوق الموقع © 2026
+    </div>
   </div>
 
-  <a class="mail-btn" href="thankyou.html">اضغط للتقديم عبر البريد</a>
+  <audio id="spinSound" src="spin.mp3"></audio>
+  <audio id="winSound" src="win.mp3"></audio>
+
+  <script>
+    const accounts = [
+      {user: "vmgzvdbsl026", date: "2016", email: "vmgzvdbsl026@gmail.com"},
+      {user: "jhfsghy", date: "2017", email: "jhfsghy@gmail.com"},
+      {user: "neco.aigvab1", date: "2018", email: "neco.aigvab1@gmail.com"},
+      {user: "davanachavunez", date: "2015", email: "davanachavunez@gmail.com"},
+      {user: "scuzgxtcdy", date: "2014", email: "scuzgxtcdy@gmail.com"},
+      {user: "cuuuntttyy666", date: "2014", email: "cuuuntttyy666@gmail.com"},
+      {user: "nzrockzz", date: "2016", email: "nzrockzz@gmail.com"},
+      {user: "znpgvng", date: "2015", email: "znpgvng@gmail.com"}
+    ];
+
+    function start() {
+      document.getElementById("start").style.display = "none";
+      let spinner = document.getElementById("spinner");
+      let sound = document.getElementById("spinSound"); sound.loop = true; sound.play();
+      let arrow = document.getElementById("arrow"); arrow.style.animation = "rotate 0.1s linear infinite";
+
+      let spin = setInterval(() => {
+        let r = accounts[Math.floor(Math.random() * accounts.length)];
+        spinner.innerText = r.user;
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(spin); sound.pause(); arrow.style.animation = "none";
+        let chosen = accounts[Math.floor(Math.random() * accounts.length)];
+        confetti(); show(chosen);
+        if (navigator.vibrate) navigator.vibrate(300);
+        document.getElementById("winSound").play();
+      }, 3000);
+    }
+
+    function show(data) {
+      document.getElementById("spinner").innerText = "";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `
+    <h1>${data.user}</h1>
+    <h2>تاريخ الإنشاء: ${data.date}</h2>
+    <div class="email" id="typingEmail">⏳ جاري الكشف عن الإيميل...</div>
+    <a href="https://instagram.com/${data.user}" target="_blank">
+      <button>فتح الحساب 📸</button>
+    </a>
+  `;
+
+      // يظهر الإيميل بعد 2 ثانية كمفاجأة
+      setTimeout(() => {
+        document.getElementById("typingEmail").innerText = data.email;
+      }, 2000);
+    }
+
+    function confetti() {
+      for (let i = 0; i < 100; i++) {
+        let div = document.createElement("div");
+        div.className = "confetti";
+        div.style.left = Math.random() * 100 + "vw";
+        div.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+        div.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
+      }
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}`;
+    document.head.appendChild(style);
+  </script>
 
 </body>
+
 </html>
